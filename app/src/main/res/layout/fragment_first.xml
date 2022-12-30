@@ -55,7 +55,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WORD TRADUC"
+        android:text="WORD TROUDUC"
         android:textSize="32dp"
         app:layout_constraintBottom_toTopOf="@+id/button_trad"
         app:layout_constraintEnd_toEndOf="parent"

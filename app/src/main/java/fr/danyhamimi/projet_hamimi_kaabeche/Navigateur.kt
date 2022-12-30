@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import fr.danyhamimi.projet_hamimi_kaabeche.databinding.FragmentFirstBinding
-//import kotlinx.android.synthetic.main.fragment_web_view.*
 
 class Navigateur : Fragment() {
 

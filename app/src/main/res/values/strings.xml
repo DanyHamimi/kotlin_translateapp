@@ -13,12 +13,41 @@
     <string name="hello_second_fragment">Quel mot souhaitez vous traduire ?. Arg: %1$s</string>
 
     <!-- Create array entries with differents langages-->
-    <string-array name="entries">
+    <color name="error">#FF0000</color>
+    <string-array name="languages">
         <item>Francais</item>
         <item>Anglais</item>
         <item>Espagnol</item>
         <item>Allemand</item>
     </string-array>
+    <string-array name="dictionnaires">
+        <item>Wordreference</item>
+        <item>Reverso</item>
+        <item>Recherche google</item>
+    </string-array>
+    <string name="name_label">Nom :</string>
+    <string name="favorite_dictionary_label">Dictionnaire favori :</string>
+    <string name="save_pages_locally">Enregistrer les pages en local ?</string>
+
+    <string-array name="dictionaries">
+        <item>Reverso</item>
+        <item>Google</item>
+        <item>Dictionnaire espagnol</item>
+    </string-array>
     <string name="title_activity_add_word">AddWordActivity</string>
     <string name="title_activity_navigator">NavigatorActivity</string>
+    <string name="words_per_wave">Nombre de mots à chaque vague d\'apprentissage : %d</string>
+    <string name="notification_frequency_label">Fréquence d\'envoi des notifications:</string>
+    <string name="select_dictionary_label">Sélectionner un dictionnaire à gérer</string>
+    <string name="save_label">Sauvegarder</string>
+    <string name="cancel_label">Annuler</string>
+    <string name="settings_saved">Paramètres enregistrés</string>
+    <string-array name="notification_frequencies">
+        <item>Toutes les heures</item>
+        <item>Tous les jours</item>
+        <item>Toutes les semaines</item>
+        <item>Tous les mois</item>
+    </string-array>
+
+    <string name="learning_language_label">Quelle langue souhaitez-vous apprendre :</string>
 </resources>
