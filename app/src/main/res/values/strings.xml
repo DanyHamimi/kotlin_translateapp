@@ -20,4 +20,5 @@
         <item>Allemand</item>
     </string-array>
     <string name="title_activity_add_word">AddWordActivity</string>
+    <string name="title_activity_navigator">NavigatorActivity</string>
 </resources>

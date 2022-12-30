@@ -16,6 +16,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.WebView
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.room.Room
@@ -44,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             val channel = NotificationChannel("CHANNEL_IDDANY", name, importance).apply {
                 description = descriptionText
             }
-            // Register the channel with the system
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
@@ -61,31 +61,14 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        //Show on screen Hello *name* and add 2 buttons to go to the next activity
-
-        /*binding.fab.setOnClickListener {
-            val languageE = Language(1,"Chien","Dog","Pero","DOGGO")
-            CheckDataWorld.languageDao.insert(languageE)
-            val a = CheckDataWorld.languageDao.getAllLanguages()
-            //Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show()
-            
-            val b = CheckDataWorld.languageDao.getLanguageById(1)
-            Toast.makeText(this, b.toString(), Toast.LENGTH_SHORT).show()
-
-
-        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
