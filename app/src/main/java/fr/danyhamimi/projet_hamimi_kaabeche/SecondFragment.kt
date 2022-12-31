@@ -67,7 +67,6 @@ class SecondFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedLanguage = parent?.selectedItem.toString()
                 if(selectedLanguage == SpinnerValMem){
-                    //make a toast and say hello
                     val newPos = ArrayLanguage.indexOf(Spinner2ValMem)
                     binding.spinner.setSelection(newPos)
                     preferences.edit().putString("learning_Sourcelanguage", Spinner2ValMem).apply()
@@ -117,37 +116,23 @@ class SecondFragment : Fragment() {
                     binding.buttonSecond2.visibility = View.VISIBLE
                 }
 
-                //check if the editText is empty or only spaces or start with spaces or end with spacesinding.buttonSecond2.visibility = View.VISIBLE
             }
 
 
 
             override fun afterTextChanged(s: Editable?) {
-                // Action à effectuer chaque fois que le texte est modifié
             }
         })
 
         binding.buttonSecond2.setOnClickListener{
-            //Get Database from Room MainActivity
 
             db.languageDao.getLanguageById(1)
-            //Change Value of spinner2 to english
-            //Get value from editText
             val word = binding.editTextTextPersonName.text.toString()
-
-// Modification de la valeur sélectionnée du spinner
-
-            //Check if the word is in the database
-
-            //Get the value of the first spinner
             val language1 = binding.spinner.selectedItem.toString()
 
-            //Get the value of the second spinner
 
             val language2 = binding.spinner2.selectedItem.toString()
-            //Toast.makeText(requireContext(), word, Toast.LENGTH_SHORT).show()
             var word2 : String?
-            //check if word is not empty
             if(word != null){
                 if(language1 == "Francais"){
                     tmpLangu1 = "fr"
@@ -157,7 +142,6 @@ class SecondFragment : Fragment() {
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
                             OpenPageFromDB(tmpValWord.Lien)
-                            // Create text view to display url
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -359,7 +343,6 @@ class SecondFragment : Fragment() {
         binding.deleteTrad.visibility = View.VISIBLE
         binding.buttonSecond2.visibility = View.GONE
         binding.tradPage.setOnClickListener {
-            //open activity navigator to the url
             val intent = Intent(requireContext(), NavigatorActivity::class.java)
             intent.putExtra("UrlSaved", lien)
             startActivity(intent)
@@ -393,7 +376,6 @@ class SecondFragment : Fragment() {
             intent.putExtra("Lang2Trad",destL)
             intent.putExtra("webSite",binding.dictionnaire.selectedItem.toString())
             startActivity(intent)
-            //When goint back to the app, ask if the user want to add the word to the database
         }
 
         builder.setNegativeButton("Non") { _, _ -> }

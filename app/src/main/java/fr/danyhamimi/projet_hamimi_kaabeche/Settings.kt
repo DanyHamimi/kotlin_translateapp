@@ -16,7 +16,6 @@ import fr.danyhamimi.projet_hamimi_kaabeche.databinding.ActivitySettingsBinding
 class Settings : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
-    // Clé pour accéder aux préférences de l'application
     private val PREFS_NAME = "app_prefs"
     lateinit var SpinnerValMem : String
     lateinit var Spinner2ValMem : String
@@ -125,7 +124,6 @@ class Settings : AppCompatActivity() {
 
         binding.favoriteDictionarySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // Code à exécuter lorsqu'un élément est sélectionné dans le Spinner
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -155,7 +153,6 @@ class Settings : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedLanguage = parent?.selectedItem.toString()
                 if(selectedLanguage == SpinnerValMem){
-                    //make a toast and say hello
                     val newPos = ArrayLanguage.indexOf(Spinner2ValMem)
                     learningSourceLanguageSpinner.setSelection(newPos)
                     prefs.edit().putString("learning_Sourcelanguage", Spinner2ValMem).apply()

@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Source language text view -->
+    <TextView
+        android:id="@+id/source_language_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Langue d'orgigine : "
+        android:textStyle="bold" />
+
+    <!-- Destination language text view -->
+
+    <!-- Word text view -->
+    <TextView
+        android:id="@+id/word_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mot : "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/destination_language_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Langue de traduction "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/translated_word_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mot traduit: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Translated word text view -->
+
+    <!-- Delete button -->
+    <TextView
+        android:id="@+id/websiteName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Site web: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete" />
+
+</LinearLayout>

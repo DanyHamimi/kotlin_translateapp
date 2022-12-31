@@ -3,7 +3,6 @@ package fr.danyhamimi.projet_hamimi_kaabeche
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
-// This is the DAO class, which defines the methods for accessing the database
 @Dao
 interface LanguageDao {
     @Insert (onConflict = OnConflictStrategy.REPLACE)

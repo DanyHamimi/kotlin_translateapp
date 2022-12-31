@@ -34,7 +34,6 @@ class ReceiveHTML : AppCompatActivity() {
                     }
 
                     builder.setNegativeButton("Non") { _, _ ->
-                        // Do something when the "No" button is clicked
                     }
                     val alertDialog = builder.create()
                     alertDialog.show()
@@ -117,7 +116,6 @@ class ReceiveHTML : AppCompatActivity() {
                 val inputTextForBDD = translationInput.text.toString().lowercase().substring(0,1).uppercase()+translationInput.text.toString().lowercase().substring(1)
                 val motATraduireForBDD = translationInput.text.toString().lowercase().substring(0,1).uppercase()+translationInput.text.toString().lowercase().substring(1)
 
-                //Get the position of the selected item in the spinner
                 val sourceLanguage = lang4bdd[sourceLanguageSpinner.selectedItemPosition]
                 val targetLanguage = lang4bdd[targetLanguageSpinner.selectedItemPosition]
                 val langue2add = Language(
@@ -172,18 +170,6 @@ class ReceiveHTML : AppCompatActivity() {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).visibility = View.GONE
             }
         }
-        
-        /*dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            val sourceLanguage = sourceLanguageSpinner.selectedItem as String
-            val targetLanguage = targetLanguageSpinner.selectedItem as String
-            val translation = translationInput.text.toString()
-            if (translation.isNotEmpty()) {
-                // Add the word to the database
-                // Show a toast to confirm the word has been added
-            } else {
-                // Show an error message
-            }
-        }*/
 
                 }
     private fun showInputDialog() {
@@ -199,16 +185,8 @@ class ReceiveHTML : AppCompatActivity() {
                 LanguageDatabase::class.java, "languageDB3"
             ).allowMainThreadQueries().build()
 
-
-            // ask to db highest id and add 1
-
             var highestId = db.languageDao.getMaxId()
 
-
-            //Convert to Long
-
-            // Toast to see the highest id
-            //Toast.makeText(this, highestId.toString(), Toast.LENGTH_SHORT).show()
             if (highestId == null || highestId <= 0) {
                 highestId = 1
             } else
@@ -249,8 +227,6 @@ class ReceiveHTML : AppCompatActivity() {
                     intent.getStringExtra("Link")!! + sourceLanguage + targetLanguage + "/" + motATraduire
                 lienBA =
                     intent.getStringExtra("Link")!! + targetLanguage + sourceLanguage + "/" + inputText
-
-            } else { //TODO CHECK FOR OTHER DICTIONNAIRES
 
             }
             val inputTextForBDD = inputText.lowercase().substring(0,1).uppercase()+inputText.lowercase().substring(1)

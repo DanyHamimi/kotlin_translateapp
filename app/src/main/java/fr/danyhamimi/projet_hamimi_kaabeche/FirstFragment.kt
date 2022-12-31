@@ -11,15 +11,10 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import fr.danyhamimi.projet_hamimi_kaabeche.databinding.FragmentFirstBinding
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -46,7 +41,6 @@ class FirstFragment : Fragment() {
         }
 
         binding.settingGame.setOnClickListener{
-            //Lanch Setting Activity
             val intent = Intent(requireContext(), Settings::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
