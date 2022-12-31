@@ -30,9 +30,9 @@
     <string name="save_pages_locally">Enregistrer les pages en local ?</string>
 
     <string-array name="dictionaries">
-        <item>Reverso</item>
+        <item>Wordreference</item>
         <item>Google</item>
-        <item>Dictionnaire espagnol</item>
+        <item>Reverso</item>
     </string-array>
     <string name="title_activity_add_word">AddWordActivity</string>
     <string name="title_activity_navigator">NavigatorActivity</string>
@@ -50,4 +50,18 @@
     </string-array>
 
     <string name="learning_language_label">Quelle langue souhaitez-vous apprendre :</string>
+    <string name="labelLangue">LABEL</string>
+    <string name="supprimer_la_traduction">Supprimer la traduction</string>
+    <string name="votre_mot">Votre mot</string>
+    <string name="traduction">Traduction</string>
+    <string name="ouvrir_la_page_de_la_traduction">Ouvrir la page de la traduction</string>
+    <string name="langue_source_langue_destination"><![CDATA[Langue source -> Langue destination]]></string>
+    <string name="fleche">Fleche</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="rules_text">Bienvenue dans le jeu : Le jeu consiste à afficher un mot dans la langue que vous avez choisi en tant que langue source dans les paramètres et à ensuite devoir choisir parmi 4 choix la bonne traduction dans la langue que vous souhaitez apprendre</string>
+    <string name="best_score_text">Meilleur score :</string>
+    <string name="play_button_text">Jouer</string>
+    <string name="back_to_menu_button_text">Retour au menu</string>
+    <string name="current_score_text">Score :</string>
+    <string name="return_label">Retour</string>
 </resources>

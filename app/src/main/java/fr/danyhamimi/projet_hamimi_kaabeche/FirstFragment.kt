@@ -7,12 +7,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import fr.danyhamimi.projet_hamimi_kaabeche.databinding.FragmentFirstBinding
+
+/**
+ * A simple [Fragment] subclass as the default destination in the navigation.
+ */
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
 
+    // This property is only valid between onCreateView and
+    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -27,19 +34,22 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        val preferences = activity?.getSharedPreferences("app_prefs", Context.MODE_PRIVATE) ?: return
+        binding.textviewFirst.setText("Bienvenue " + preferences.getString("name", "USER") +" sur ")
+        val tmpname =  preferences.getString("name", "USER")
         binding.buttonTrad.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
         binding.buttonGame.setOnClickListener{
-            findNavController().navigate(R.id.action_FirstFragment_to_gameFragment)
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            startActivity(intent)
         }
 
         binding.settingGame.setOnClickListener{
+            //Lanch Setting Activity
             val intent = Intent(requireContext(), Settings::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
-
         }
     }
 

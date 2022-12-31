@@ -1,22 +1,19 @@
 package fr.danyhamimi.projet_hamimi_kaabeche
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
-import android.text.Selection.setSelection
 import android.text.TextWatcher
-import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.AdapterView
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.get
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import fr.danyhamimi.projet_hamimi_kaabeche.databinding.FragmentSecondBinding
@@ -38,6 +35,8 @@ class SecondFragment : Fragment() {
 
     lateinit var tmpLangu1 : String
     lateinit var tmpLangu2 : String
+    lateinit var SpinnerValMem : String
+    lateinit var Spinner2ValMem : String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -47,13 +46,57 @@ class SecondFragment : Fragment() {
             LanguageDatabase::class.java, "languageDB3"
         ).allowMainThreadQueries().build()
 
+        val preferences = activity?.getSharedPreferences("app_prefs", Context.MODE_PRIVATE) ?: return
+
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
         binding.tradPage.visibility = View.GONE
         binding.deleteTrad.visibility = View.GONE
-        binding.spinner2.setSelection(1)
+        val learningLanguage = preferences.getString("learning_language", "Anglais")
+        val learningSourceLanguage = preferences.getString("learning_Sourcelanguage","Francais")
+
+        // Définissez la sélection du Spinner en fonction de la valeur enregistrée dans les préférences
+        val ArrayLanguage = resources.getStringArray(R.array.languages)
+        binding.spinner2.setSelection(ArrayLanguage.indexOf(learningLanguage))
+        binding.spinner.setSelection(ArrayLanguage.indexOf(learningSourceLanguage))
+        SpinnerValMem = learningSourceLanguage.toString()
+        Spinner2ValMem = learningLanguage.toString()
+        binding.spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedLanguage = parent?.selectedItem.toString()
+                if(selectedLanguage == SpinnerValMem){
+                    //make a toast and say hello
+                    val newPos = ArrayLanguage.indexOf(Spinner2ValMem)
+                    binding.spinner.setSelection(newPos)
+                    preferences.edit().putString("learning_Sourcelanguage", Spinner2ValMem).apply()
+
+                }
+                SpinnerValMem = binding.spinner.selectedItem.toString()
+                Spinner2ValMem = binding.spinner2.selectedItem.toString()
+                preferences.edit().putString("learning_language", selectedLanguage).apply()
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedLanguage = parent?.selectedItem.toString()
+                if(selectedLanguage == Spinner2ValMem){
+                    val newPos = ArrayLanguage.indexOf(SpinnerValMem)
+                    binding.spinner2.setSelection(newPos)
+                    preferences.edit().putString("learning_language", SpinnerValMem).apply()
+                }
+                SpinnerValMem = binding.spinner.selectedItem.toString()
+                Spinner2ValMem = binding.spinner2.selectedItem.toString()
+                preferences.edit().putString("learning_Sourcelanguage", selectedLanguage).apply()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
 
         binding.editTextTextPersonName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -62,25 +105,49 @@ class SecondFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.tradPage.visibility = View.GONE
+                binding.deleteTrad.visibility = View.GONE
+                binding.buttonSecond2.visibility = View.VISIBLE
                 binding.textView.text = ""
+                if(binding.editTextTextPersonName.text.trim().isEmpty() ||
+                    binding.editTextTextPersonName.text.trim().startsWith(" ") ||
+                    binding.editTextTextPersonName.text.trim().endsWith(" ")){ // To avoid spaces at begining or end
+                    binding.buttonSecond2.visibility = View.GONE
+                }
+                else{
+                    binding.buttonSecond2.visibility = View.VISIBLE
+                }
+
+                //check if the editText is empty or only spaces or start with spaces or end with spacesinding.buttonSecond2.visibility = View.VISIBLE
             }
 
+
+
             override fun afterTextChanged(s: Editable?) {
+                // Action à effectuer chaque fois que le texte est modifié
             }
         })
 
         binding.buttonSecond2.setOnClickListener{
+            //Get Database from Room MainActivity
 
             db.languageDao.getLanguageById(1)
+            //Change Value of spinner2 to english
+            //Get value from editText
             val word = binding.editTextTextPersonName.text.toString()
 
+// Modification de la valeur sélectionnée du spinner
 
+            //Check if the word is in the database
 
+            //Get the value of the first spinner
             val language1 = binding.spinner.selectedItem.toString()
 
+            //Get the value of the second spinner
 
             val language2 = binding.spinner2.selectedItem.toString()
+            //Toast.makeText(requireContext(), word, Toast.LENGTH_SHORT).show()
             var word2 : String?
+            //check if word is not empty
             if(word != null){
                 if(language1 == "Francais"){
                     tmpLangu1 = "fr"
@@ -90,6 +157,7 @@ class SecondFragment : Fragment() {
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
                             OpenPageFromDB(tmpValWord.Lien)
+                            // Create text view to display url
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -289,7 +357,9 @@ class SecondFragment : Fragment() {
     private fun OpenPageFromDB(lien: String) {
         binding.tradPage.visibility = View.VISIBLE
         binding.deleteTrad.visibility = View.VISIBLE
+        binding.buttonSecond2.visibility = View.GONE
         binding.tradPage.setOnClickListener {
+            //open activity navigator to the url
             val intent = Intent(requireContext(), NavigatorActivity::class.java)
             intent.putExtra("UrlSaved", lien)
             startActivity(intent)
@@ -305,6 +375,7 @@ class SecondFragment : Fragment() {
             binding.tradPage.visibility = View.GONE
             binding.deleteTrad.visibility = View.GONE
             binding.textView.setText("Traduction supprimée")
+            binding.buttonSecond2.visibility = View.VISIBLE
 
         }
 
@@ -322,6 +393,7 @@ class SecondFragment : Fragment() {
             intent.putExtra("Lang2Trad",destL)
             intent.putExtra("webSite",binding.dictionnaire.selectedItem.toString())
             startActivity(intent)
+            //When goint back to the app, ask if the user want to add the word to the database
         }
 
         builder.setNegativeButton("Non") { _, _ -> }

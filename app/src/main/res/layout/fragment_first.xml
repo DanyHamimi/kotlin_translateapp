@@ -16,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <Button
         android:id="@+id/button_trad"
         android:layout_width="180dp"
@@ -23,9 +24,9 @@
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_first" />
-
 
     <Button
         android:id="@+id/button_game"
@@ -55,7 +56,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WORD TROUDUC"
+        android:text="WORD TRADUC"
         android:textSize="32dp"
         app:layout_constraintBottom_toTopOf="@+id/button_trad"
         app:layout_constraintEnd_toEndOf="parent"

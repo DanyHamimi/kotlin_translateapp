@@ -83,8 +83,10 @@ class NavigatorActivity : AppCompatActivity() {
             webView.webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                     if (Uri.parse(url).host == "www.wordreference.com" || Uri.parse(url).host == "www.google.com") {
+                        // This is my web site, so do not override; let my WebView load the page
                         return false
                     }
+                    // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(intent)
                     return true

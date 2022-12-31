@@ -14,9 +14,6 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -27,25 +24,5 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_SecondFragment_to_navigateur"
-            app:destination="@id/navigateur" />
-    </fragment>
-    <fragment
-        android:id="@+id/gameFragment"
-        android:name="fr.danyhamimi.projet_hamimi_kaabeche.GameFragment"
-        android:label="GameFragment" >
-        <action
-            android:id="@+id/action_gameFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/navigateur"
-        android:name="fr.danyhamimi.projet_hamimi_kaabeche.Navigateur"
-        android:label="navigateur_fragment"
-        tools:layout="@layout/navigateur_fragment" >
-        <action
-            android:id="@+id/action_navigateur_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>
