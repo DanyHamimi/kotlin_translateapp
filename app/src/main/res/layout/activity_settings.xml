@@ -93,7 +93,7 @@
 
             <TimePicker
                 android:id="@+id/starting_hour_picker"
-                android:layout_width="307dp"
+                android:layout_width="394dp"
                 android:layout_height="424dp" />
 
             <TextView

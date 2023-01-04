@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+
         /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val nameNotif = "My Channel"
