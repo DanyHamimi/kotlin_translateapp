@@ -30,6 +30,12 @@ class ManageDictionaryActivity : AppCompatActivity() {
             LanguageDatabase::class.java, "languageDB3"
         ).allowMainThreadQueries().build()
 
+        val getAllDictionnaire = db.languageDao.getAllDictionnaire()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, getAllDictionnaire)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        
+
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -55,6 +61,8 @@ class ManageDictionaryActivity : AppCompatActivity() {
                 val adapter = RecyclerAdapter(sourceLanguages, destinationLanguages, words, translatedWords,translationWebsite,ids,db)
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(this@ManageDictionaryActivity)
+
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

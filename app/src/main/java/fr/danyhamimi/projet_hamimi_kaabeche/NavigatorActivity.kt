@@ -4,12 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import java.io.File
 
 
 class NavigatorActivity : AppCompatActivity() {
@@ -83,8 +85,10 @@ class NavigatorActivity : AppCompatActivity() {
             webView.webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                     if (Uri.parse(url).host == "www.wordreference.com" || Uri.parse(url).host == "www.google.com") {
+                        // This is my web site, so do not override; let my WebView load the page
                         return false
                     }
+                    // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(intent)
                     return true
@@ -93,12 +97,21 @@ class NavigatorActivity : AppCompatActivity() {
         }
         else{
             var url = "https://www.wordreference.com/"
+            shareButton.visibility = View.GONE
+
             if(intent.getStringExtra("UrlSaved") != null)
             {
                 url = intent.getStringExtra("UrlSaved")!!
+                webView.loadUrl(url)
             }
-            shareButton.visibility = View.GONE
-            webView.loadUrl(url)
+            else if(intent.getStringExtra("UrlLocation") != null){
+                webView.getSettings().allowContentAccess = true;
+                webView.getSettings().allowFileAccess = true;
+                var b = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!
+                val file = File(b, intent.getStringExtra("UrlLocation"))
+                val fileUrl = file.toURI().toURL().toString()
+                webView.loadUrl(fileUrl)
+            }
         }
 
     }

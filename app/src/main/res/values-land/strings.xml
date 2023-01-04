@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Projet-Hamimi_kaabeche</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Accueil</string>
+    <string name="second_fragment_label">Traduire</string>
+    <string name="next">Traduire un mot</string>
+    <string name="previous">Précédent</string>
+    <string name="next2"> Jouer </string>
+    <string name="trad"> Traduire</string>
+
+    <string name="hello_first_fragment">Bienvenue Dany sur ....</string>
+    <string name="hello_second_fragment">Quel mot souhaitez vous traduire ?. Arg: %1$s</string>
+
+    <!-- Create array entries with differents langages-->
+    <color name="error">#FF0000</color>
+    <string-array name="languages">
+        <item>Francais</item>
+        <item>Anglais</item>
+        <item>Espagnol</item>
+        <item>Allemand</item>
+    </string-array>
+    <string-array name="dictionnaires">
+        <item>Wordreference</item>
+        <item>Reverso</item>
+        <item>Recherche google</item>
+    </string-array>
+    <string name="name_label">Nom :</string>
+    <string name="favorite_dictionary_label">Dictionnaire favori :</string>
+    <string name="save_pages_locally">Enregistrer les pages en local ?</string>
+
+    <string-array name="dictionaries">
+        <item>Wordreference</item>
+        <item>Google</item>
+        <item>Reverso</item>
+    </string-array>
+    <string name="title_activity_add_word">AddWordActivity</string>
+    <string name="title_activity_navigator">NavigatorActivity</string>
+    <string name="words_per_wave">Nombre de mots à chaque vague d\'apprentissage : %d</string>
+    <string name="notification_frequency_label">Fréquence d\'envoi des notifications:</string>
+    <string name="select_dictionary_label">Sélectionner un dictionnaire à gérer</string>
+    <string name="save_label">Sauvegarder</string>
+    <string name="cancel_label">Annuler</string>
+    <string name="settings_saved">Paramètres enregistrés</string>
+    <string-array name="notification_frequencies">
+        <item>Touts les jours</item>
+        <item>Toutes les 12 heures</item>
+        <item>Toutes les heures</item>
+        <item>Toutes les minutes</item>
+    </string-array>
+
+    <string name="learning_language_label">Quelle langue souhaitez-vous apprendre :</string>
+    <string name="labelLangue">LABEL</string>
+    <string name="supprimer_la_traduction">Supprimer la traduction</string>
+    <string name="votre_mot">Votre mot</string>
+    <string name="traduction">Traduction</string>
+    <string name="ouvrir_la_page_de_la_traduction">Ouvrir la page de la traduction</string>
+    <string name="langue_source_langue_destination"><![CDATA[Langue source -> Langue destination]]></string>
+    <string name="fleche">Fleche</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="rules_text">Bienvenue dans le jeu : Le jeu consiste à afficher un mot dans la langue que vous avez choisi en tant que langue source dans les paramètres et à ensuite devoir choisir parmi 4 choix la bonne traduction dans la langue que vous souhaitez apprendre</string>
+    <string name="best_score_text">Meilleur score :</string>
+    <string name="play_button_text">Jouer</string>
+    <string name="back_to_menu_button_text">Retour au menu</string>
+    <string name="current_score_text">Score :</string>
+    <string name="return_label">Retour</string>
+</resources>

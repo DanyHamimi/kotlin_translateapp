@@ -1,10 +1,12 @@
 package fr.danyhamimi.projet_hamimi_kaabeche
 
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.room.Room
 import fr.danyhamimi.projet_hamimi_kaabeche.databinding.ActivityInGameBinding
@@ -15,10 +17,13 @@ class InGameActivity : AppCompatActivity() {
     private lateinit var BestScore : String
     private lateinit var preferences : SharedPreferences
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+            super.onCreate(savedInstanceState)
 
         binding = ActivityInGameBinding.inflate(layoutInflater)
+
+
         setContentView(binding.root)
         preferences = getSharedPreferences("app_prefs", MODE_PRIVATE)
         BestScore = preferences.getString("bestscore", "0")!!
@@ -60,6 +65,7 @@ class InGameActivity : AppCompatActivity() {
 
         binding.backButton.setOnClickListener {
             finish()
+            db.close()
         }
         binding.restartButton.setOnClickListener {
             launchGame(0,db,LearningSource,learningLanguage)
@@ -69,22 +75,18 @@ class InGameActivity : AppCompatActivity() {
 
     private fun launchGame(i: Int, db: LanguageDatabase, LearningSource: String, learningLanguage: String
     ) {
-        //Set all butons background to purple
         var RealLearningSource = preferences.getString("learning_Sourcelanguage", "Francais")
         var ReallearningLanguage = preferences.getString("learning_language", "Anglais")
         binding.answer0Button.setBackgroundColor(Color.BLACK)
         binding.answer1Button.setBackgroundColor(Color.BLACK)
         binding.answer2Button.setBackgroundColor(Color.BLACK)
         binding.answer3Button.setBackgroundColor(Color.BLACK)
-        //if i is equal to 0 make visible the question and the answers
         if (i == 0) {
             binding.restartButton.visibility = View.GONE
             binding.currentScoreTextView.setText("Score : 0")
         }
-        //Select all languages from the database where LearningSource and learningLanguage are here
         val languages = db.languageDao.getLanguageByLangueSource(LearningSource,learningLanguage)
         if (languages.size < 4) {
-            //Hide the question and the answers and stop the function is there is not enough words in the database
             binding.questionTextView.visibility = View.VISIBLE
             binding.questionTextView.setText("Pas assez de mots dans la BDD pour jouer dans cette langue")
             binding.answer0Button.visibility = View.GONE
@@ -100,9 +102,7 @@ class InGameActivity : AppCompatActivity() {
         binding.answer1Button.setText(randomLanguages[1].MotDestination)
         binding.answer2Button.setText(randomLanguages[2].MotDestination)
         binding.answer3Button.setText(randomLanguages[3].MotDestination)
-        
-        //Set the text of the question to the word in LearningSource
-        //random between 0 and 3
+
         val random = (0..3).random()
         val motAtraduire = randomLanguages[random].MotSource!!
         binding.questionTextView.setText("Quelle est la traduction du mot "+ RealLearningSource!!.lowercase()+ " " +motAtraduire+ " en "+ ReallearningLanguage!!.lowercase())
@@ -164,7 +164,7 @@ class InGameActivity : AppCompatActivity() {
             }
         } else {
             binding.currentScoreTextView.setText("PERDU")
-            //Hide the buttons and show the restart button
+
             when (i) {
                 0 -> {
                     binding.answer0Button.setBackgroundColor(Color.RED)

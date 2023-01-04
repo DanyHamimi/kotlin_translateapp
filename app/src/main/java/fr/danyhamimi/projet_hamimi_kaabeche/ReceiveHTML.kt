@@ -108,30 +108,26 @@ class ReceiveHTML : AppCompatActivity() {
                     this,
                     LanguageDatabase::class.java, "languageDB3"
                 ).allowMainThreadQueries().build()
-                var highestId = db.languageDao.getMaxId()
-                if (highestId == null || highestId <= 0) {
-                    highestId = 1
-                } else
-                    highestId++
+
                 val inputTextForBDD = translationInput.text.toString().lowercase().substring(0,1).uppercase()+translationInput.text.toString().lowercase().substring(1)
                 val motATraduireForBDD = translationInput.text.toString().lowercase().substring(0,1).uppercase()+translationInput.text.toString().lowercase().substring(1)
 
                 val sourceLanguage = lang4bdd[sourceLanguageSpinner.selectedItemPosition]
                 val targetLanguage = lang4bdd[targetLanguageSpinner.selectedItemPosition]
-                val langue2add = Language(
-                    id = highestId + 1,
+                val langue2add = LanguageItem(
                     MotSource = translationInput.text.toString(),
                     MotDestination = motATraduireForBDD,
                     LangueSource = sourceLanguage,
                     LangueDestination = targetLanguage,
                     Lien = intent.getStringExtra(Intent.EXTRA_TEXT)!!,
-                    NomDictionnaire = website,
+                    NomDictionnaire = websiteFrom.text.toString(),
                     isFileSaved = false,
                     isInNotification = false
                 )
                 db.languageDao.insert(langue2add)
                 Toast.makeText(this, "Mot ajouté..", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
+                db.close()
                 startActivity(intent)
                 finish()
             }
@@ -171,6 +167,19 @@ class ReceiveHTML : AppCompatActivity() {
             }
         }
 
+
+        /*dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            val sourceLanguage = sourceLanguageSpinner.selectedItem as String
+            val targetLanguage = targetLanguageSpinner.selectedItem as String
+            val translation = translationInput.text.toString()
+            if (translation.isNotEmpty()) {
+                // Add the word to the database
+                // Show a toast to confirm the word has been added
+            } else {
+                // Show an error message
+            }
+        }*/
+
                 }
     private fun showInputDialog() {
         val builder = AlertDialog.Builder(this)
@@ -185,12 +194,6 @@ class ReceiveHTML : AppCompatActivity() {
                 LanguageDatabase::class.java, "languageDB3"
             ).allowMainThreadQueries().build()
 
-            var highestId = db.languageDao.getMaxId()
-
-            if (highestId == null || highestId <= 0) {
-                highestId = 1
-            } else
-                highestId++
 
             val sourceLanguage = intent.getStringExtra("LangSource")
             val targetLanguage = intent.getStringExtra("Lang2Trad")
@@ -228,11 +231,12 @@ class ReceiveHTML : AppCompatActivity() {
                 lienBA =
                     intent.getStringExtra("Link")!! + targetLanguage + sourceLanguage + "/" + inputText
 
+            } else { //TODO CHECK FOR OTHER DICTIONNAIRES
+
             }
             val inputTextForBDD = inputText.lowercase().substring(0,1).uppercase()+inputText.lowercase().substring(1)
             val motATraduireForBDD = motATraduire!!.lowercase().substring(0,1).uppercase()+motATraduire.lowercase().substring(1)
-            val atoB = Language(
-                id = highestId,
+            val atoB = LanguageItem(
                 MotSource = motATraduireForBDD,
                 MotDestination = inputTextForBDD,
                 LangueSource = sourceLanguage,
@@ -243,8 +247,7 @@ class ReceiveHTML : AppCompatActivity() {
                 isInNotification = false
             )
             db.languageDao.insert(atoB)
-            val btoA = Language(
-                id = highestId + 1,
+            val btoA = LanguageItem(
                 MotSource = inputTextForBDD,
                 MotDestination = motATraduireForBDD,
                 LangueSource = targetLanguage,
@@ -255,6 +258,7 @@ class ReceiveHTML : AppCompatActivity() {
                 isInNotification = false
             )
             db.languageDao.insert(btoA)
+            db.close()
             finish()
 
 

@@ -11,9 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.get
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import fr.danyhamimi.projet_hamimi_kaabeche.databinding.FragmentSecondBinding
@@ -57,7 +54,6 @@ class SecondFragment : Fragment() {
         val learningLanguage = preferences.getString("learning_language", "Anglais")
         val learningSourceLanguage = preferences.getString("learning_Sourcelanguage","Francais")
 
-        // Définissez la sélection du Spinner en fonction de la valeur enregistrée dans les préférences
         val ArrayLanguage = resources.getStringArray(R.array.languages)
         binding.spinner2.setSelection(ArrayLanguage.indexOf(learningLanguage))
         binding.spinner.setSelection(ArrayLanguage.indexOf(learningSourceLanguage))
@@ -67,6 +63,7 @@ class SecondFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedLanguage = parent?.selectedItem.toString()
                 if(selectedLanguage == SpinnerValMem){
+                    //make a toast and say hello
                     val newPos = ArrayLanguage.indexOf(Spinner2ValMem)
                     binding.spinner.setSelection(newPos)
                     preferences.edit().putString("learning_Sourcelanguage", Spinner2ValMem).apply()
@@ -121,6 +118,7 @@ class SecondFragment : Fragment() {
 
 
             override fun afterTextChanged(s: Editable?) {
+                // Action à effectuer chaque fois que le texte est modifié
             }
         })
 
@@ -128,6 +126,7 @@ class SecondFragment : Fragment() {
 
             db.languageDao.getLanguageById(1)
             val word = binding.editTextTextPersonName.text.toString()
+
             val language1 = binding.spinner.selectedItem.toString()
 
 
@@ -141,7 +140,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"fr","en")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien,tmpValWord.isFileSaved,tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -154,7 +153,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"fr","es")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -167,7 +166,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"fr","de")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -187,7 +186,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"en","fr")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -200,7 +199,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"en","es")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -213,7 +212,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"en","de")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -234,7 +233,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"es","fr")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -247,7 +246,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"es","en")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -260,7 +259,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"es","de")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -280,7 +279,7 @@ class SecondFragment : Fragment() {
                         tmpLangu2 = "fr"
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -293,7 +292,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"de","en")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -306,7 +305,7 @@ class SecondFragment : Fragment() {
                         val tmpValWord = db.languageDao.getLanguageByMotSource(word,"de","es")
                         if(tmpValWord != null){
                             word2 = tmpValWord.MotDestination
-                            OpenPageFromDB(tmpValWord.Lien)
+                            OpenPageFromDB(tmpValWord.Lien, tmpValWord.isFileSaved, tmpValWord.id)
                         }
                         else{
                             word2 = "Pas de traduction"
@@ -331,6 +330,7 @@ class SecondFragment : Fragment() {
             binding.textView.text = word2
 
         }
+        db.close()
     }
 
     private fun HideVisibility(){
@@ -338,13 +338,19 @@ class SecondFragment : Fragment() {
         binding.deleteTrad.visibility = View.GONE
     }
 
-    private fun OpenPageFromDB(lien: String) {
+    private fun OpenPageFromDB(lien: String, fileSaved: Boolean, id: Long) {
         binding.tradPage.visibility = View.VISIBLE
         binding.deleteTrad.visibility = View.VISIBLE
         binding.buttonSecond2.visibility = View.GONE
         binding.tradPage.setOnClickListener {
+            //open activity navigator to the url
             val intent = Intent(requireContext(), NavigatorActivity::class.java)
-            intent.putExtra("UrlSaved", lien)
+            if(fileSaved){
+                intent.putExtra("UrlLocation", "$id.html")
+            }
+            else{
+                intent.putExtra("UrlSaved", lien)
+            }
             startActivity(intent)
         }
         binding.deleteTrad.setOnClickListener{
@@ -359,7 +365,7 @@ class SecondFragment : Fragment() {
             binding.deleteTrad.visibility = View.GONE
             binding.textView.setText("Traduction supprimée")
             binding.buttonSecond2.visibility = View.VISIBLE
-
+            db.close()
         }
 
     }

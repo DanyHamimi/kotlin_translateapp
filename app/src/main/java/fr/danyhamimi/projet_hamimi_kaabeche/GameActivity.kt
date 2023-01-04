@@ -25,7 +25,6 @@ class GameActivity : AppCompatActivity() {
 
 
         binding.bestScoreTextView.setText("Meilleur score : " + BestScore)
-
         binding.backToMenuButton.setOnClickListener {
             finish()
         }
